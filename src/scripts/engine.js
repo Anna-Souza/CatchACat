@@ -4,12 +4,13 @@ const state = {
     enemy: document.querySelector(".enemy"),
     timeLeft: document.querySelector("#time-left"),
     score: document.querySelector("#score"),
+    modal: document.querySelector(".endGameShow"),
+    text: document.querySelector(".msg"),
   },
   values: {
-    gameVelocity: 1000,
     hitPosition: 0,
     result: 0,
-    curretTime: 60,
+    currentTime: 10,
   },
   actions: {
     timerId: setInterval(randomSquare, 1000),
@@ -17,15 +18,29 @@ const state = {
   },
 };
 
-function countDown() {
-  state.values.curretTime--;
-  state.view.timeLeft.textContent = state.values.curretTime;
+const modalOk = document.querySelector(".fim");
+modalOk.addEventListener('click', function() {
+  state.view.modal.classList.add("banner")});
 
-  if (state.values.curretTime <= 0) {
+const playAgain = document.querySelector(".reload");
+playAgain.addEventListener('click', function() {
+  location.reload()});
+
+function countDown() {
+  state.values.currentTime--;
+  state.view.timeLeft.textContent = state.values.currentTime;
+
+  if (state.values.currentTime <= 0) {
     clearInterval(state.actions.countDownTimerId);
     clearInterval(state.actions.timerId);
-    alert("Game Over! O seu resultado foi: " + state.values.result);
+    playSound("cat");
+    gameOver();
   }
+}
+
+function gameOver(){
+  state.view.text.innerHTML= `Você fez ${state.values.result} pontos.`
+  state.view.modal.classList.remove("banner")
 }
 
 function playSound(audioName) {
