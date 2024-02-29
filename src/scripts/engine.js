@@ -10,7 +10,7 @@ const state = {
   values: {
     hitPosition: 0,
     result: 0,
-    currentTime: 10,
+    currentTime: 60,
   },
   actions: {
     timerId: setInterval(randomSquare, 1000),
